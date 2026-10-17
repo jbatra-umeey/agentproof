@@ -1,0 +1,12 @@
+flowchart TD
+    evidence["Topic and fixed evidence"] --> fanout["Launch three worker tasks"]
+    fanout --> summary["Executive summary"]
+    fanout --> risks["Risk analysis"]
+    fanout --> delivery["Delivery plan"]
+    summary --> supervisor["Supervisor synthesis"]
+    risks --> supervisor
+    delivery --> supervisor
+    evidence --> single["Single agent baseline"]
+    supervisor --> compare["Compare latency, model cost and quote checks"]
+    single --> compare
+    compare --> result["Results with experimental limitations"]
