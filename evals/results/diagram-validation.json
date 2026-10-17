@@ -1,0 +1,34 @@
+[
+  {
+    "name": "architecture.mmd",
+    "rendered": true
+  },
+  {
+    "name": "codefix.mmd",
+    "rendered": true
+  },
+  {
+    "name": "data-model.mmd",
+    "rendered": true
+  },
+  {
+    "name": "deployment.mmd",
+    "rendered": true
+  },
+  {
+    "name": "reports.mmd",
+    "rendered": true
+  },
+  {
+    "name": "research.mmd",
+    "rendered": true
+  },
+  {
+    "name": "run-lifecycle.mmd",
+    "rendered": true
+  },
+  {
+    "name": "support-approval.mmd",
+    "rendered": true
+  }
+]

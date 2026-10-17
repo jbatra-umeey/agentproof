@@ -1,0 +1,77 @@
+{
+  "type": "local_fault_injection_not_production_incident",
+  "timeline": [
+    {
+      "at": "2026-10-16T16:15:46.185763+00:00",
+      "event": "worker_A_checkpointed",
+      "run_id": "6d575eeb-f149-40c4-8b01-df6a714e9e05"
+    },
+    {
+      "at": "2026-10-16T16:15:46.186610+00:00",
+      "event": "fault_injected",
+      "action": "Expired active lease to model missed heartbeat"
+    },
+    {
+      "at": "2026-10-16T16:15:46.188178+00:00",
+      "event": "worker_B_reclaimed",
+      "attempt": 2
+    },
+    {
+      "at": "2026-10-16T16:15:46.188672+00:00",
+      "event": "worker_A_fenced",
+      "stale_commit_rejected": true
+    },
+    {
+      "at": "2026-10-16T16:15:46.191146+00:00",
+      "event": "recovery_complete",
+      "status": "succeeded"
+    }
+  ],
+  "events": [
+    {
+      "id": 1,
+      "run_id": "6d575eeb-f149-40c4-8b01-df6a714e9e05",
+      "created": 1792167346.1791043,
+      "type": "queued",
+      "data": {
+        "kind": "research"
+      }
+    },
+    {
+      "id": 2,
+      "run_id": "6d575eeb-f149-40c4-8b01-df6a714e9e05",
+      "created": 1792167346.1828396,
+      "type": "claimed",
+      "data": {
+        "attempt": 1
+      }
+    },
+    {
+      "id": 3,
+      "run_id": "6d575eeb-f149-40c4-8b01-df6a714e9e05",
+      "created": 1792167346.184589,
+      "type": "checkpoint",
+      "data": {
+        "step": "retrieved"
+      }
+    },
+    {
+      "id": 4,
+      "run_id": "6d575eeb-f149-40c4-8b01-df6a714e9e05",
+      "created": 1792167346.187505,
+      "type": "claimed",
+      "data": {
+        "attempt": 2
+      }
+    },
+    {
+      "id": 5,
+      "run_id": "6d575eeb-f149-40c4-8b01-df6a714e9e05",
+      "created": 1792167346.1894472,
+      "type": "succeeded",
+      "data": {
+        "status": "succeeded"
+      }
+    }
+  ]
+}
