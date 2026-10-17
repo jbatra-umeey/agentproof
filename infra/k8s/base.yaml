@@ -1,0 +1,144 @@
+# Configure the agentproof-runtime Secret first. Replace image before applying.
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: agentproof
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: agentproof
+  namespace: agentproof
+automountServiceAccountToken: false
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: agentproof-migrate-v1
+  namespace: agentproof
+spec:
+  backoffLimit: 1
+  template:
+    spec:
+      serviceAccountName: agentproof
+      restartPolicy: Never
+      containers:
+        - name: migration
+          image: agentproof:0.1.0
+          command: [agentproof, migrate]
+          envFrom: [{secretRef: {name: agentproof-runtime}}]
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 10001
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities: {drop: [ALL]}
+            seccompProfile: {type: RuntimeDefault}
+          resources:
+            requests: {cpu: 100m, memory: 128Mi}
+            limits: {cpu: "1", memory: 512Mi}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: agentproof-api
+  namespace: agentproof
+spec:
+  replicas: 2
+  selector: {matchLabels: {app: agentproof-api}}
+  template:
+    metadata: {labels: {app: agentproof-api}}
+    spec:
+      serviceAccountName: agentproof
+      containers:
+        - name: api
+          image: agentproof:0.1.0
+          ports: [{containerPort: 8000, name: http}]
+          envFrom: [{secretRef: {name: agentproof-runtime}}]
+          readinessProbe:
+            httpGet: {path: /health/ready, port: http}
+            initialDelaySeconds: 5
+          livenessProbe:
+            httpGet: {path: /health/live, port: http}
+            initialDelaySeconds: 10
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 10001
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities: {drop: [ALL]}
+            seccompProfile: {type: RuntimeDefault}
+          resources:
+            requests: {cpu: 200m, memory: 256Mi}
+            limits: {cpu: "1", memory: 512Mi}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: agentproof-worker
+  namespace: agentproof
+spec:
+  replicas: 2
+  selector: {matchLabels: {app: agentproof-worker}}
+  template:
+    metadata: {labels: {app: agentproof-worker}}
+    spec:
+      serviceAccountName: agentproof
+      terminationGracePeriodSeconds: 660
+      containers:
+        - name: worker
+          image: agentproof:0.1.0
+          command: [agentproof, worker, --kinds, research, support, reports]
+          envFrom: [{secretRef: {name: agentproof-runtime}}]
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 10001
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities: {drop: [ALL]}
+            seccompProfile: {type: RuntimeDefault}
+          resources:
+            requests: {cpu: 200m, memory: 256Mi}
+            limits: {cpu: "1", memory: 512Mi}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: agentproof-api
+  namespace: agentproof
+spec:
+  selector: {app: agentproof-api}
+  ports: [{port: 80, targetPort: http}]
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: agentproof-api
+  namespace: agentproof
+spec:
+  minAvailable: 1
+  selector: {matchLabels: {app: agentproof-api}}
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: api-ingress-only
+  namespace: agentproof
+spec:
+  podSelector: {matchLabels: {app: agentproof-api}}
+  policyTypes: [Ingress]
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels: {kubernetes.io/metadata.name: ingress-nginx}
+      ports: [{protocol: TCP, port: 8000}]
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: no-worker-ingress
+  namespace: agentproof
+spec:
+  podSelector: {matchLabels: {app: agentproof-worker}}
+  policyTypes: [Ingress]
+  ingress: []
