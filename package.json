@@ -1,0 +1,6 @@
+{
+  "name": "agentproof-documentation",
+  "private": true,
+  "scripts": {"docs": "node scripts/build_handbook.cjs", "check:ui": "node --check web/app.js"},
+  "devDependencies": {"marked": "15.0.12"}
+}

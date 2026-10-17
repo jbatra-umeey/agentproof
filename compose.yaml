@@ -1,0 +1,55 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: agentproof
+      POSTGRES_USER: agentproof
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD}
+    volumes: ["postgres-data:/var/lib/postgresql/data"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U agentproof"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    restart: unless-stopped
+  migrate:
+    build: .
+    env_file: .env
+    command: ["agentproof", "migrate"]
+    depends_on:
+      db: {condition: service_healthy}
+  api:
+    build: .
+    env_file: .env
+    ports: ["127.0.0.1:8000:8000"]
+    read_only: true
+    tmpfs: ["/tmp"]
+    cap_drop: [ALL]
+    security_opt: ["no-new-privileges:true"]
+    depends_on:
+      migrate: {condition: service_completed_successfully}
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health/ready')"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+    restart: unless-stopped
+  worker:
+    build: .
+    env_file: .env
+    command: ["agentproof", "worker", "--kinds", "research", "support", "reports"]
+    read_only: true
+    tmpfs: ["/tmp"]
+    cap_drop: [ALL]
+    security_opt: ["no-new-privileges:true"]
+    stop_grace_period: 11m
+    depends_on:
+      migrate: {condition: service_completed_successfully}
+    restart: unless-stopped
+  otel:
+    image: otel/opentelemetry-collector-contrib:0.120.0
+    command: ["--config=/etc/otel.yaml"]
+    volumes: ["./infra/otel.yaml:/etc/otel.yaml:ro"]
+    restart: unless-stopped
+volumes:
+  postgres-data:
