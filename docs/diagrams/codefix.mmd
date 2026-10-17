@@ -1,0 +1,11 @@
+flowchart TD
+    input["Issue, source and immutable tests"] --> baseline["Sandbox baseline"]
+    baseline -->|"Already passing"| nofix["Return without repair claim"]
+    baseline -->|"Failing"| patch["Model proposes complete source"]
+    patch --> test["Fresh restricted sandbox"]
+    test -->|"Failed and attempts remain"| reflect["Failure log and previous source"]
+    reflect --> patch
+    test -->|"Third failure"| failed["Report not fixed"]
+    test -->|"Passed"| result["Candidate and public test evidence"]
+    result --> hidden["Evaluation: held-out tests"]
+    hidden --> review["Human review before merge"]

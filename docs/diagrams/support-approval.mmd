@@ -1,0 +1,17 @@
+sequenceDiagram
+    participant U as Requester
+    participant A as API
+    participant W as Worker
+    participant D as Database
+    participant H as Approver
+    U->>A: Message and optional refund proposal
+    A->>D: Insert tenant-scoped job
+    W->>D: Claim lease
+    W->>W: Classifier and specialist response
+    W->>D: Checkpoint and waiting state
+    H->>A: Decision with separate identity
+    A->>D: Atomic decision and requeue
+    W->>D: Reclaim and read decision
+    W->>D: Insert unique local refund ledger
+    W->>D: Commit final result
+    A-->>U: SSE status and result

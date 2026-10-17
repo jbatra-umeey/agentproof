@@ -1,0 +1,13 @@
+flowchart TD
+    question["Research question"] --> plan["Choose search or finish"]
+    plan -->|"Search, at most 3 iterations"| search["Search provider"]
+    search --> evidence["Bounded snippets and source IDs"]
+    evidence --> plan
+    plan -->|"Finish or iteration cap"| synth["Structured atomic claims"]
+    synth --> quote{"Exact quote and known source?"}
+    quote -->|"No"| reject["Reject claim"]
+    quote -->|"Yes"| judge{"Evidence entails claim?"}
+    judge -->|"No"| reject
+    judge -->|"Yes"| accepted["Accepted cited claim"]
+    reject --> final["Return supported claims or abstain"]
+    accepted --> final

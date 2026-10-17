@@ -1,0 +1,38 @@
+erDiagram
+    TENANT_LOCKS ||--o{ RUNS : serializes_admission
+    RUNS ||--o{ EVENTS : records
+    RUNS ||--o| APPROVALS : receives
+    RUNS ||--o| REFUNDS : creates
+    RUNS {
+        string id PK
+        string tenant
+        string idem_key
+        string status
+        string lease_token
+        float lease_until
+        int attempt
+        json payload
+        json checkpoint
+        json result
+    }
+    EVENTS {
+        int id PK
+        string run_id
+        string type
+        json data
+    }
+    APPROVALS {
+        string run_id PK
+        string actor
+        string decision
+        string reason
+    }
+    REFUNDS {
+        string run_id PK
+        string tenant
+        int amount_cents
+        string status
+    }
+    TENANT_LOCKS {
+        string id PK
+    }

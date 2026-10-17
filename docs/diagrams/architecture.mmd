@@ -1,0 +1,19 @@
+flowchart TD
+    user["Operator dashboard or API client"] --> api["FastAPI: authentication and tenant scope"]
+    idp["OIDC identity provider"] -->|"Verified JWT claims"| api
+    api -->|"Atomic enqueue and replay"| db[("PostgreSQL: jobs, checkpoints, events")]
+    db -->|"Lease and fencing token"| worker["General worker pool"]
+    db -->|"Codefix queue"| repair["Dedicated repair worker"]
+    worker --> research["Research workflow"]
+    worker --> support["Support workflow"]
+    worker --> reports["Report workflow"]
+    research --> search["Tavily search"]
+    research --> model["Model gateway"]
+    support --> model
+    reports --> model
+    repair --> model
+    repair --> sandbox["Restricted Docker sandbox"]
+    support -->|"Pause and approved ledger"| db
+    api -->|"SSE event replay"| user
+    worker --> otel["OpenTelemetry collector"]
+    repair --> otel

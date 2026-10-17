@@ -1,0 +1,16 @@
+stateDiagram-v2
+    [*] --> queued: validated submission
+    queued --> running: worker claim
+    running --> running: fenced checkpoint
+    running --> queued: transient error and retry budget
+    running --> running: expired lease reclaimed
+    running --> waiting: refund proposal
+    waiting --> queued: distinct human decision
+    running --> succeeded: committed result
+    running --> failed: permanent error or exhausted retries
+    queued --> cancelled: cancellation
+    running --> cancelled: cancellation fences owner
+    waiting --> cancelled: cancellation
+    succeeded --> [*]
+    failed --> [*]
+    cancelled --> [*]

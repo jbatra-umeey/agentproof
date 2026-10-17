@@ -1,0 +1,12 @@
+flowchart TD
+    browser["Browser or service client"] --> gateway["TLS ingress and rate limits"]
+    gateway --> api["API replicas"]
+    api --> db[("Managed PostgreSQL")]
+    general["General worker replicas"] --> db
+    repair["Dedicated repair runner host"] --> db
+    general --> providers["Model and search providers"]
+    repair --> providers
+    repair --> containers["Network-isolated sandbox containers"]
+    general --> otel["Telemetry backend"]
+    api --> idp["Identity provider JWKS"]
+    backup["Backup and restore service"] --> db
