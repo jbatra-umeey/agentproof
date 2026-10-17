@@ -1,0 +1,162 @@
+[
+  {
+    "id": "fix-001",
+    "name": "addition",
+    "issue": "Add two numbers",
+    "source": "def solve(a,b): return a-b\n",
+    "tests": "import unittest\nfrom solution import solve\nclass Regression(unittest.TestCase):\n    def test_case_0(self):\n        self.assertEqual(solve(*[2, 3]), 5)\n    def test_case_1(self):\n        self.assertEqual(solve(*[-2, 2]), 0)\n",
+    "hidden_tests": "import unittest\nfrom solution import solve\nclass Regression(unittest.TestCase):\n    def test_case_0(self):\n        self.assertEqual(solve(*[100, -9]), 91)\n    def test_case_1(self):\n        self.assertEqual(solve(*[0, 0]), 0)\n"
+  },
+  {
+    "id": "fix-002",
+    "name": "factorial",
+    "issue": "Factorial of a non-negative integer",
+    "source": "def solve(n): return n\n",
+    "tests": "import unittest\nfrom solution import solve\nclass Regression(unittest.TestCase):\n    def test_case_0(self):\n        self.assertEqual(solve(*[0]), 1)\n    def test_case_1(self):\n        self.assertEqual(solve(*[4]), 24)\n",
+    "hidden_tests": "import unittest\nfrom solution import solve\nclass Regression(unittest.TestCase):\n    def test_case_0(self):\n        self.assertEqual(solve(*[6]), 720)\n    def test_case_1(self):\n        self.assertEqual(solve(*[1]), 1)\n"
+  },
+  {
+    "id": "fix-003",
+    "name": "parity",
+    "issue": "Return whether an integer is even",
+    "source": "def solve(n): return n%2==1\n",
+    "tests": "import unittest\nfrom solution import solve\nclass Regression(unittest.TestCase):\n    def test_case_0(self):\n        self.assertEqual(solve(*[2]), True)\n    def test_case_1(self):\n        self.assertEqual(solve(*[3]), False)\n",
+    "hidden_tests": "import unittest\nfrom solution import solve\nclass Regression(unittest.TestCase):\n    def test_case_0(self):\n        self.assertEqual(solve(*[-4]), True)\n    def test_case_1(self):\n        self.assertEqual(solve(*[0]), True)\n"
+  },
+  {
+    "id": "fix-004",
+    "name": "reverse_words",
+    "issue": "Reverse word order and normalize spaces",
+    "source": "def solve(s): return s[::-1]\n",
+    "tests": "import unittest\nfrom solution import solve\nclass Regression(unittest.TestCase):\n    def test_case_0(self):\n        self.assertEqual(solve(*['a b']), 'b a')\n    def test_case_1(self):\n        self.assertEqual(solve(*['hello world']), 'world hello')\n",
+    "hidden_tests": "import unittest\nfrom solution import solve\nclass Regression(unittest.TestCase):\n    def test_case_0(self):\n        self.assertEqual(solve(*['  a   b c ']), 'c b a')\n    def test_case_1(self):\n        self.assertEqual(solve(*['']), '')\n"
+  },
+  {
+    "id": "fix-005",
+    "name": "deduplicate",
+    "issue": "Deduplicate a list preserving first occurrence order",
+    "source": "def solve(xs): return sorted(set(xs))\n",
+    "tests": "import unittest\nfrom solution import solve\nclass Regression(unittest.TestCase):\n    def test_case_0(self):\n        self.assertEqual(solve(*[[3, 1, 3, 2]]), [3, 1, 2])\n    def test_case_1(self):\n        self.assertEqual(solve(*[[]]), [])\n",
+    "hidden_tests": "import unittest\nfrom solution import solve\nclass Regression(unittest.TestCase):\n    def test_case_0(self):\n        self.assertEqual(solve(*[[5, 4, 5, 4, 1]]), [5, 4, 1])\n"
+  },
+  {
+    "id": "fix-006",
+    "name": "clamp",
+    "issue": "Clamp x to inclusive lower and upper bounds",
+    "source": "def solve(x,lo,hi): return min(x,lo)\n",
+    "tests": "import unittest\nfrom solution import solve\nclass Regression(unittest.TestCase):\n    def test_case_0(self):\n        self.assertEqual(solve(*[5, 0, 10]), 5)\n    def test_case_1(self):\n        self.assertEqual(solve(*[-1, 0, 10]), 0)\n",
+    "hidden_tests": "import unittest\nfrom solution import solve\nclass Regression(unittest.TestCase):\n    def test_case_0(self):\n        self.assertEqual(solve(*[11, 0, 10]), 10)\n    def test_case_1(self):\n        self.assertEqual(solve(*[0, 0, 10]), 0)\n"
+  },
+  {
+    "id": "fix-007",
+    "name": "palindrome",
+    "issue": "Case-insensitive palindrome ignoring non-alphanumeric characters",
+    "source": "def solve(s): return s==s[::-1]\n",
+    "tests": "import unittest\nfrom solution import solve\nclass Regression(unittest.TestCase):\n    def test_case_0(self):\n        self.assertEqual(solve(*['Race car']), True)\n    def test_case_1(self):\n        self.assertEqual(solve(*['abc']), False)\n",
+    "hidden_tests": "import unittest\nfrom solution import solve\nclass Regression(unittest.TestCase):\n    def test_case_0(self):\n        self.assertEqual(solve(*['A man, a plan, a canal: Panama']), True)\n    def test_case_1(self):\n        self.assertEqual(solve(*['']), True)\n"
+  },
+  {
+    "id": "fix-008",
+    "name": "median",
+    "issue": "Median of a non-empty numeric list",
+    "source": "def solve(xs): return sorted(xs)[len(xs)//2]\n",
+    "tests": "import unittest\nfrom solution import solve\nclass Regression(unittest.TestCase):\n    def test_case_0(self):\n        self.assertEqual(solve(*[[1, 4]]), 2.5)\n    def test_case_1(self):\n        self.assertEqual(solve(*[[3, 1, 2]]), 2)\n",
+    "hidden_tests": "import unittest\nfrom solution import solve\nclass Regression(unittest.TestCase):\n    def test_case_0(self):\n        self.assertEqual(solve(*[[9, 1, 5, 3]]), 4)\n    def test_case_1(self):\n        self.assertEqual(solve(*[[8]]), 8)\n"
+  },
+  {
+    "id": "fix-009",
+    "name": "binary_search",
+    "issue": "Index of target in sorted distinct list, or -1",
+    "source": "def solve(xs,target): return 0\n",
+    "tests": "import unittest\nfrom solution import solve\nclass Regression(unittest.TestCase):\n    def test_case_0(self):\n        self.assertEqual(solve(*[[1, 3, 5], 3]), 1)\n    def test_case_1(self):\n        self.assertEqual(solve(*[[1, 3], 4]), -1)\n",
+    "hidden_tests": "import unittest\nfrom solution import solve\nclass Regression(unittest.TestCase):\n    def test_case_0(self):\n        self.assertEqual(solve(*[[], 1]), -1)\n    def test_case_1(self):\n        self.assertEqual(solve(*[[1, 3, 5], 5]), 2)\n"
+  },
+  {
+    "id": "fix-010",
+    "name": "flatten",
+    "issue": "Flatten exactly one level of nested lists",
+    "source": "def solve(xs): return xs\n",
+    "tests": "import unittest\nfrom solution import solve\nclass Regression(unittest.TestCase):\n    def test_case_0(self):\n        self.assertEqual(solve(*[[[1, 2], [3]]]), [1, 2, 3])\n    def test_case_1(self):\n        self.assertEqual(solve(*[[]]), [])\n",
+    "hidden_tests": "import unittest\nfrom solution import solve\nclass Regression(unittest.TestCase):\n    def test_case_0(self):\n        self.assertEqual(solve(*[[[], [1], []]]), [1])\n"
+  },
+  {
+    "id": "fix-011",
+    "name": "rotate",
+    "issue": "Rotate list right by k; empty input stays empty",
+    "source": "def solve(xs,k): return xs[k:]+xs[:k]\n",
+    "tests": "import unittest\nfrom solution import solve\nclass Regression(unittest.TestCase):\n    def test_case_0(self):\n        self.assertEqual(solve(*[[1, 2, 3], 1]), [3, 1, 2])\n",
+    "hidden_tests": "import unittest\nfrom solution import solve\nclass Regression(unittest.TestCase):\n    def test_case_0(self):\n        self.assertEqual(solve(*[[1, 2, 3], 4]), [3, 1, 2])\n    def test_case_1(self):\n        self.assertEqual(solve(*[[], 2]), [])\n"
+  },
+  {
+    "id": "fix-012",
+    "name": "gcd",
+    "issue": "Non-negative greatest common divisor; gcd(0,0)=0",
+    "source": "def solve(a,b): return min(a,b)\n",
+    "tests": "import unittest\nfrom solution import solve\nclass Regression(unittest.TestCase):\n    def test_case_0(self):\n        self.assertEqual(solve(*[12, 8]), 4)\n    def test_case_1(self):\n        self.assertEqual(solve(*[0, 5]), 5)\n",
+    "hidden_tests": "import unittest\nfrom solution import solve\nclass Regression(unittest.TestCase):\n    def test_case_0(self):\n        self.assertEqual(solve(*[-18, 12]), 6)\n    def test_case_1(self):\n        self.assertEqual(solve(*[0, 0]), 0)\n"
+  },
+  {
+    "id": "fix-013",
+    "name": "fibonacci",
+    "issue": "Fibonacci with F(0)=0 and F(1)=1",
+    "source": "def solve(n): return n\n",
+    "tests": "import unittest\nfrom solution import solve\nclass Regression(unittest.TestCase):\n    def test_case_0(self):\n        self.assertEqual(solve(*[0]), 0)\n    def test_case_1(self):\n        self.assertEqual(solve(*[7]), 13)\n",
+    "hidden_tests": "import unittest\nfrom solution import solve\nclass Regression(unittest.TestCase):\n    def test_case_0(self):\n        self.assertEqual(solve(*[10]), 55)\n    def test_case_1(self):\n        self.assertEqual(solve(*[2]), 1)\n"
+  },
+  {
+    "id": "fix-014",
+    "name": "slug",
+    "issue": "ASCII lowercase slug with non-alphanumeric runs replaced by a single hyphen and trimmed",
+    "source": "def solve(s): return s.lower().replace(\" \",\"-\")\n",
+    "tests": "import unittest\nfrom solution import solve\nclass Regression(unittest.TestCase):\n    def test_case_0(self):\n        self.assertEqual(solve(*[' Hello, World! ']), 'hello-world')\n",
+    "hidden_tests": "import unittest\nfrom solution import solve\nclass Regression(unittest.TestCase):\n    def test_case_0(self):\n        self.assertEqual(solve(*['A___B  C']), 'a-b-c')\n    def test_case_1(self):\n        self.assertEqual(solve(*['!!!']), '')\n"
+  },
+  {
+    "id": "fix-015",
+    "name": "chunks",
+    "issue": "Split a list into chunks of positive size k",
+    "source": "def solve(xs,k): return [xs[:k]]\n",
+    "tests": "import unittest\nfrom solution import solve\nclass Regression(unittest.TestCase):\n    def test_case_0(self):\n        self.assertEqual(solve(*[[1, 2, 3, 4, 5], 2]), [[1, 2], [3, 4], [5]])\n",
+    "hidden_tests": "import unittest\nfrom solution import solve\nclass Regression(unittest.TestCase):\n    def test_case_0(self):\n        self.assertEqual(solve(*[[], 3]), [])\n    def test_case_1(self):\n        self.assertEqual(solve(*[[1, 2], 3]), [[1, 2]])\n"
+  },
+  {
+    "id": "fix-016",
+    "name": "merge_intervals",
+    "issue": "Merge overlapping inclusive intervals and sort by start",
+    "source": "def solve(xs): return xs\n",
+    "tests": "import unittest\nfrom solution import solve\nclass Regression(unittest.TestCase):\n    def test_case_0(self):\n        self.assertEqual(solve(*[[[1, 3], [2, 6], [8, 9]]]), [[1, 6], [8, 9]])\n",
+    "hidden_tests": "import unittest\nfrom solution import solve\nclass Regression(unittest.TestCase):\n    def test_case_0(self):\n        self.assertEqual(solve(*[[[5, 7], [1, 2], [2, 5]]]), [[1, 7]])\n    def test_case_1(self):\n        self.assertEqual(solve(*[[]]), [])\n"
+  },
+  {
+    "id": "fix-017",
+    "name": "vowels",
+    "issue": "Count ASCII vowels regardless of case",
+    "source": "def solve(s): return sum(c in \"aeiou\" for c in s)\n",
+    "tests": "import unittest\nfrom solution import solve\nclass Regression(unittest.TestCase):\n    def test_case_0(self):\n        self.assertEqual(solve(*['AEiou']), 5)\n    def test_case_1(self):\n        self.assertEqual(solve(*['xyz']), 0)\n",
+    "hidden_tests": "import unittest\nfrom solution import solve\nclass Regression(unittest.TestCase):\n    def test_case_0(self):\n        self.assertEqual(solve(*['Education']), 5)\n    def test_case_1(self):\n        self.assertEqual(solve(*['']), 0)\n"
+  },
+  {
+    "id": "fix-018",
+    "name": "parse_bool",
+    "issue": "Parse true/yes/1 and false/no/0 case-insensitively with surrounding spaces",
+    "source": "def solve(s): return bool(s)\n",
+    "tests": "import unittest\nfrom solution import solve\nclass Regression(unittest.TestCase):\n    def test_case_0(self):\n        self.assertEqual(solve(*['false']), False)\n    def test_case_1(self):\n        self.assertEqual(solve(*['true']), True)\n",
+    "hidden_tests": "import unittest\nfrom solution import solve\nclass Regression(unittest.TestCase):\n    def test_case_0(self):\n        self.assertEqual(solve(*[' NO ']), False)\n    def test_case_1(self):\n        self.assertEqual(solve(*['1']), True)\n    def test_case_2(self):\n        self.assertEqual(solve(*['0']), False)\n"
+  },
+  {
+    "id": "fix-019",
+    "name": "frequencies",
+    "issue": "Return dictionary of item frequencies",
+    "source": "def solve(xs): return {x:1 for x in xs}\n",
+    "tests": "import unittest\nfrom solution import solve\nclass Regression(unittest.TestCase):\n    def test_case_0(self):\n        self.assertEqual(solve(*[['a', 'a', 'b']]), {'a': 2, 'b': 1})\n",
+    "hidden_tests": "import unittest\nfrom solution import solve\nclass Regression(unittest.TestCase):\n    def test_case_0(self):\n        self.assertEqual(solve(*[[]]), {})\n    def test_case_1(self):\n        self.assertEqual(solve(*[[1, 1, 2, 1]]), {1: 3, 2: 1})\n"
+  },
+  {
+    "id": "fix-020",
+    "name": "prefix_sums",
+    "issue": "Return cumulative sums including each item",
+    "source": "def solve(xs): return [sum(xs)]\n",
+    "tests": "import unittest\nfrom solution import solve\nclass Regression(unittest.TestCase):\n    def test_case_0(self):\n        self.assertEqual(solve(*[[1, 2, 3]]), [1, 3, 6])\n",
+    "hidden_tests": "import unittest\nfrom solution import solve\nclass Regression(unittest.TestCase):\n    def test_case_0(self):\n        self.assertEqual(solve(*[[]]), [])\n    def test_case_1(self):\n        self.assertEqual(solve(*[[2, -3, 4]]), [2, -1, 3])\n"
+  }
+]
