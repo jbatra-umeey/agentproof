@@ -29,7 +29,10 @@ jobs:
       - run: python scripts/evaluate.py --suite support --mode baseline --output evals/results/support-baseline.json
       - run: node --check web/app.js
       - run: docker build -t agentproof:ci .
-      - run: docker compose --env-file .env.example config --quiet
+      - name: Validate Compose configuration
+        run: |
+          cp .env.example .env
+          docker compose --env-file .env.example config --quiet
       - uses: actions/upload-artifact@v4
         if: always()
         with:
