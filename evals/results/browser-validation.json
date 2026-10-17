@@ -1,0 +1,17 @@
+{
+  "browser": "Chromium 133 headless",
+  "api": "real FastAPI with SQLite",
+  "checks": {
+    "authentication": true,
+    "workflow_navigation": true,
+    "payload_presets": true,
+    "job_submission": true,
+    "cancellation": true,
+    "sse_events": true,
+    "desktop_no_overflow": true,
+    "mobile_no_overflow": true,
+    "no_token_in_web_storage": true,
+    "no_javascript_errors": true
+  },
+  "qualification": "No live model or Docker execution performed in this UI check"
+}
